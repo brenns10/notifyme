@@ -14,6 +14,9 @@ with notify('Long, laborious task'):
 Once the long, laborious task is done, you will receive an email saying "Long,
 laborious task completed.".
 
+It also comes with a CLI (you should symlink it as 'notifyme').  You simply run
+`notifyme [command ...]` to run the command and get an email on completion.
+
 Installation, Configuration, and Use
 ------------------------------------
 
@@ -31,3 +34,6 @@ chmod 600 ~/.notifyme
 ```
 
 And you're done!  The Python code above should work perfectly.
+
+If you'd like to use the CLI, place a symlink named 'notifyme' pointing to the
+file somewhere in your path, and you should be good to go.
