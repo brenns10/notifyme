@@ -21,7 +21,7 @@ from configparser import ConfigParser
 
 import sys
 import socket
-import os
+import subprocess
 
 
 CONF_FILE = '~/.notifyme'
@@ -121,13 +121,10 @@ def _main():
         sys.exit(1)
 
     hostname = socket.gethostname()
-    command = ' '.join(sys.argv[1:])
+    args = sys.argv[1:]
 
-    with notify("COMMAND [%s] ON \"%s\"" % (command, hostname)):
-        # Use os.system() because this is one of the few times when we actually
-        # *do* want to spawn a subshell, execute an arbitrary command, and send
-        # output/errors to stdout and stderr!
-        code = os.system(command)
+    with notify("Command \"%s\" ON \"%s\"" % (args[0], hostname)):
+        code = subprocess.call(args)
         sys.stdout.flush()
         sys.stderr.flush()
 
