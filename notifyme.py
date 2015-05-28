@@ -29,7 +29,7 @@ HOST = 'smtp.gmail.com'
 PORT = 465
 
 
-def NotifyMeMailer(object):
+class NotifyMeMailer(object):
     """Class that handles SMTP functions using the configuration file."""
 
     def __init__(self, conf=CONF_FILE, profile='default'):
