@@ -25,8 +25,6 @@ import subprocess
 
 
 CONF_FILE = '~/.notifyme'
-HOST = 'smtp.gmail.com'
-PORT = 465
 
 
 class NotifyMeMailer(object):
@@ -106,6 +104,14 @@ def notify(task_name, conf=CONF_FILE, profile='default'):
     handler.send(subject, subject)
 
 
+def _check_args():
+    if not sys.argv[1:]:
+        print('No command specified.')
+        print('Usage: %s [command ...]' % sys.argv[0])
+        print('Notifies on completion of a command.')
+        sys.exit(1)
+
+
 def _main():
     """
     Main for CLI notification process.
@@ -114,16 +120,20 @@ def _main():
     emailed.
     """
 
-    if not sys.argv[1:]:
-        print('No command specified.')
-        print('Usage: %s [command ...]' % sys.argv[0])
-        print('Notifies on completion of a command.')
-        sys.exit(1)
+    _check_args()
+
+    profile = 'default'
+    if sys.argv[1].startswith('--profile='):
+        profile = sys.argv[1][len('--profile='):]
+        del sys.argv[1]
+
+    _check_args()
 
     hostname = socket.gethostname()
     args = sys.argv[1:]
 
-    with notify("Command \"%s\" ON \"%s\"" % (args[0], hostname)):
+    with notify("Command \"%s\" ON \"%s\"" % (args[0], hostname),
+                profile=profile):
         code = subprocess.call(args)
         sys.stdout.flush()
         sys.stderr.flush()
