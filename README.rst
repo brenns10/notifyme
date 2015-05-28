@@ -44,3 +44,9 @@ from access by other users, which you can do with the following command:
 
 And you’re done!  You can now use the module within Python code as a context
 manager, or on the command line for any program you'd like.
+
+License
+-------
+
+This project is released under the Revised BSD license.  See ``LICENSE.txt`` for
+details.
