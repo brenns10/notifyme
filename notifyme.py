@@ -61,11 +61,11 @@ class NotifyMeMailer(object):
 
     def _get_smtp(self):
         """Return the correct instance of SMTP for the required security."""
-        if self.security == 'SSL':
+        if self._security == 'SSL':
             return SMTP_SSL(self._hostname, self._port)
 
         smtp = SMTP(self._hostname, self._port)
-        if self.security == 'TLS':
+        if self._security == 'TLS':
             smtp.starttls()
         return smtp
 
