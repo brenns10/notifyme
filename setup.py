@@ -4,13 +4,14 @@ long_description = open('README.rst').read()
 
 setup(
     name='notifyme',
-    version='0.1',
+    version='0.1.1',
     description='Email notifications on task completion',
     long_description=long_description,
     url='https://github.com/brenns10/notifyme',
     author='Stephen Brennan',
     author_email='stephen@stephen-brennan.com',
     license='Revised BSD',
+    py_modules=['notifyme'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: BSD License',
