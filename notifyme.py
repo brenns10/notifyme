@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""Simple module for email notifications when a task is finished.
+"""
+Simple module for email notifications when a task is finished.
 
-Currently only supports Gmail, over SMTP_SSL.  Requires a configuration file
-(~/.notifyme by default) to specify the email address and password.  I
-recommend using 2-step authentication and an app-specific password (which works
-perfectly with this module).  Also, set the permissions to 600 for better
-security.  The config file should look like this:
+This module supports sending mail via any mail server (not just Gmail anymore)
+by employing a better configuration file.  The configuration file must contain
+a "default" section, as well as any additional profiles you may wish to send
+to.  You should include the following items in every profile section:
 
-    [email]:[password]
-
-There should be no extraneous whitespace.  The email address should include
-'@gmail.com'.
-
+- email: your email address.
+- host: SMTP server hostname.
+- port: SMTP server port.
+- username: (if different from email) **not required
+- password: your password (trailing whitespace is an issue!)
+- security: SSL, TLS, or None.
 """
 
 from contextlib import contextmanager
