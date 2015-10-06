@@ -19,6 +19,7 @@ from contextlib import contextmanager
 from os.path import expanduser, expandvars
 from smtplib import SMTP, SMTP_SSL
 from configparser import ConfigParser
+from timeit import default_timer
 
 import sys
 import socket
@@ -96,13 +97,17 @@ def notify(task_name, conf=CONF_FILE, profile='default'):
     # Open the configuration and read it!
     config = expanduser(expandvars(conf))
     handler = NotifyMeMailer(conf=config, profile=profile)
+    time = default_timer()
 
     # Pass control to the caller.
     yield
 
     # Send the notification.
+    time = default_timer() - time
+    msg = '\nWall Time: %0.4f s' % time
+    print(msg)
     subject = task_name + ' completed.'
-    handler.send(subject, subject)
+    handler.send(subject, subject + msg)
 
 
 def _check_args():
