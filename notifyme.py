@@ -54,7 +54,7 @@ class NotifyMeMailer(object):
 
         self._email = profile['email']
         self._hostname = profile['host']
-        self._username = profile.get('email', self._email)
+        self._username = profile.get('username', self._email)
         self._password = profile['password']
         self._port = int(profile['port'])
         self._security = profile.get('security', 'none').upper()
