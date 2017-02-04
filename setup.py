@@ -4,7 +4,7 @@ long_description = open('README.rst').read()
 
 setup(
     name='notifyme',
-    version='0.1.1',
+    version='0.1.3',
     description='Email notifications on task completion',
     long_description=long_description,
     url='https://github.com/brenns10/notifyme',
