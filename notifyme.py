@@ -59,6 +59,19 @@ class NotifyMeMailer(object):
         self._port = int(profile['port'])
         self._security = profile.get('security', 'none').upper()
 
+    @classmethod
+    def create(cls, conf=CONF_FILE, profile='default'):
+        """
+        Create a mailer using the default configuration located at ~/.notifyme,
+        and using the default profile.
+
+        :param conf: location of the configuration file, which may include
+        environment variables or tilde
+        :param profile: name of the profile within the config
+        """
+        fullpath = expanduser(expandvars(conf))
+        return cls(conf=fullpath, profile=profile)
+
     def _get_smtp(self):
         """Return the correct instance of SMTP for the required security."""
         if self._security == 'SSL':
@@ -95,8 +108,7 @@ def notify(task_name, conf=CONF_FILE, profile='default'):
     - conf: Alternative config file.  Supports environment variables and ~.
     """
     # Open the configuration and read it!
-    config = expanduser(expandvars(conf))
-    handler = NotifyMeMailer(conf=config, profile=profile)
+    handler = NotifyMeMailer.create(conf=conf, profile=profile)
     time = default_timer()
 
     # Pass control to the caller.
